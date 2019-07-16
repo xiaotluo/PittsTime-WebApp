@@ -1,0 +1,50 @@
+{% extends "PittsTime/base.html" %}
+{% load staticfiles %}
+
+{% block content %}
+   <title>Create Blog</title>
+<body>
+    {% if redirectURL %}
+    <div class="container">
+        <h3>Authenticate with Spotify first to choose music for your blog</h3>
+        <a href="{{ redirectURL }}"><button class="btn btn-primary">Please Authenticate with Spotify First</button></a><br>
+        <h3>Skip this page if you don't want music</h3>
+        <a href="{% url 'createBlog_next' %}"><button id="id_skip" class="btn btn-primary"> Skip </button></a>
+    </div>
+    {% else %}
+    <div class="container">
+    <form method="get" action="{% url 'search_track' %}">
+        <label for="id_search_track_name" >Track Name: </label>
+        <input id="id_search_track_name" name="track_name">
+        <input type="hidden" name="code" value="{{ code }}">
+        <input type="hidden" name="authorization_header" value="{{ authorization_header }}">
+        <button id="id_search_track_button" class="btn btn-primary"> Search </button>
+        {% csrf_token %}
+    </form>
+    <a href="{% url 'createBlog_next' %}"><button id="id_skip" class="btn btn-primary"> Skip </button></a>
+    </div>
+    {% endif %}
+    <div class="container">
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    {% if srcs %}
+        <form method="post" action="{% url 'add_track' %}">
+            <p>Here is the result of the track: {{ track_name }}</p>
+            <input type="hidden" name="track_name" value="{{ track_name }}">
+            {% for src in srcs %}
+{#            <div>#}
+{#            <iframe src="{{ src }}" width="300" height="380" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>#}
+{#            </div>#}
+            <div>
+            <input id='display_tracks' type="radio" name="track_src" value="{{ src }}" >
+            <iframe src="{{ src }}" width="300" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+            </div>
+            {% endfor %}
+        <button id="id_post_button"> Confirm My Choice </button>
+        {% csrf_token %}
+        </form>
+    {% endif %}
+    </div>
+</body>
+ {% endblock%}

@@ -1,0 +1,32 @@
+{% extends "PittsTime/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="container">
+<h2> 
+<span>Profile Page for </span>
+<span id="id_user_name">
+    {{profile.user.first_name}} {{profile.user.last_name}}
+</span>
+</h2>
+
+
+{% if profile.bio_picture%}
+    <img id="id_user_picture" src="{% url 'photo' profile.id %}"  width="200px" height="200px">
+    <br>
+{% else %}
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg">
+{% endif %}
+<br>
+{{profile.bio_text}}
+
+<br><br>
+<span> <h4>{{profile.user.first_name}} {{profile.user.last_name}}'s interests are:</h4></span>
+  <ul class="list-dividers">
+  {% for i in following %}
+      <li><a href="{% url 'tag' i.id%}" >{{i.name}}</a>  
+  {% endfor %}
+</ul>
+</div>
+
+ {% endblock%}

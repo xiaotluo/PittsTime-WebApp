@@ -1,0 +1,197 @@
+{% extends "PittsTime/base.html" %}
+  {% load staticfiles %}
+   {% block content %}
+
+      <title>Homepage</title>
+       <meta name="viewport" content="initial-scale=1.0">
+       <meta charset="utf-8">
+       <style>
+         .entry-content{
+           height:140px;
+           overflow:hidden;
+         }
+         #footer{
+           position:fixed;
+           left: 0;
+           bottom: 0;
+           width: 100%;
+           text-align: center;
+         }
+       </style>
+  <!-- Preloader -->
+  <div class="loader-mask">
+    <div class="loader">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <div class="main-wrapper oh">
+
+    <div class="content-wrapper oh">
+
+      <!-- Content -->
+      <section class="content blog-standard pt-mdm-50">
+        <div class="container relative">
+          <div class="row">
+
+            <!-- post content -->
+            <div class="col-md-9 post-content mb-50">
+
+              <!-- list posts -->
+              <div class="row items-list" id="blog">
+               {% for blog in blogs%}
+                <article class="entry-item clearfix">
+                  <div class="col-sm-5">
+                    <div class="entry-img">
+                        <div>
+                    <iframe src="{{ blog.song_src }}" width="280" height="80" frameborder="0" allowtransparency="true" allow="encrypted-media"></iframe>
+                    </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-7">
+                    <div class="entry-header">
+                      <a href="#" class="entry-category">{{blog.tag}}</a>
+                      <h2 class="entry-title">
+                        <a href="{% url 'blog-detail' blog.id%}">{{blog.title}}</a>
+                      </h2>
+                    </div>
+                    <div class="entry-wrap">
+                      <div class="entry">
+                        <div class="entry-content">
+                       {{blog.Blog_content|safe}}
+                        </div>
+                        <div class="entry-meta-wrap clearfix">
+                          <ul class="entry-meta">
+                            <li class="entry-date">
+                              <a>{{blog.create_time}}</a>
+                            </li>
+                            <li class="entry-comments">
+                              <a>{{blog.number_of_comment}} Comments</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+                <hr>
+                {% endfor %}
+              </div> <!-- end list posts -->
+
+
+<!--               <div class="row mt-20">
+                <div class="col-md-12 text-center">
+                  <a href="#" class="btn btn-md btn-stroke" id="load-more">Load More</a>
+                </div>
+              </div> -->
+
+
+            </div> <!-- end col -->
+
+            <!-- Sidebar -->
+            <aside class="col-md-3 sidebar">
+
+              <div class="widget about-blog text-center">
+                <div class="heading-lines">
+                  <h3 class="widget-title heading">About PittsTime</h3>
+                </div>
+                <!-- <img src="img/about_me.jpg" alt=""> -->
+                <p class="mb-20 mt-30">Sharing interesting things happening in Pittsburgh</p>
+                <!-- <img src="img/signature.png" alt=""> -->
+              </div>
+
+
+              <!-- Categories -->
+
+              <div class="widget categories">
+                <div class="heading-lines">
+                  <h3 class="widget-title heading">Categories</h3>
+                </div>
+                <ul class="list-dividers">
+                  {% for i in interest %}
+                  <li>
+                    <a href="{% url 'tag' i.id%}">{{i.name}}</a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <!-- Recent Posts -->
+              <div class="widget recent-posts">
+                <div class="heading-lines">
+                  <h3 class="widget-title heading">Recent Blogs</h3>
+                </div>
+                <div class="entry-list w-thumbs">
+                  <ul class="posts-list list-dividers">
+                    {% for b in recentblogs %}
+                    <li class="entry-li">
+                      <article class="post-small clearfix">
+                        <div class="entry-img">
+                          <a>
+                            <!-- <img src="img/recent_1.jpg" alt=""> -->
+                          </a>
+                        </div>
+                        <div class="entry">
+                          <h3 class="entry-title"><a href="{% url 'blog-detail' b.id%}">{{b.title}}</a></h3>
+                          <ul class="entry-meta list-inline">
+                            <li class="entry-date">
+                              <a>{{b.create_time}}</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </article>
+                    </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Instagram Feed Grid -->
+              <div class="widget instagram">
+                <div class="heading-lines">
+                  <h3 class="widget-title heading">Picture in Blogs</h3>
+                </div>
+                <ul id="instafeed-grid">
+                 {% for picture in pictures %}
+                 <li ><a target="_blank" href="{% url 'blog-detail' picture.blog.id%}"><img class="instagram-img" alt="Image" src="{{picture.picture_link}}" width="70px" height="50px"></a></li>
+                    <!-- <img src="{{picture.picture_link}}" width="40px" height="50px"> -->
+                 {% endfor %}
+                </ul>
+              </div>
+            </div>
+              <!-- Ad banner -->
+<!--               <div class="widget custom-ad-banner">
+                <a href="#">
+                  <img src="img/banner.jpg" alt="">
+                </a>
+              </div>
+ -->
+
+
+
+
+            <!-- Footer Type-1 -->
+      <footer class="footer footer-type-1 bg-dark" id="footer">
+        <div class="bottom-footer">
+          <div class="container">
+            <div class="row">
+
+              <div class="col-sm-12 copyright text-center">
+                <span>
+                  © 2019 WebApp Development • Team37
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </footer> <!-- end footer -->
+
+      <div id="back-to-top">
+        <a href="#top"><i class="fas fa-angle-double-up fa-3x"></i></a>
+      </div>
+
+    </div> <!-- end content wrapper -->
+  </div> <!-- end main wrapper -->
+{% endblock %}

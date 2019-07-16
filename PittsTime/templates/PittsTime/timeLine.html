@@ -1,0 +1,66 @@
+{% extends "PittsTime/base.html" %}
+  {% load staticfiles %}
+    {% block content %}
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <style>
+      .timeline {
+    list-style: none;
+  }
+  .timeline > li {
+    margin-bottom: 60px;
+  }
+
+  /* for Desktop */
+  @media ( min-width : 640px ){
+    .timeline > li {
+      overflow: hidden;
+      margin: 0;
+      position: relative;
+    }
+    .timeline-date {
+      width: 110px;
+      float: left;
+      margin-top: 20px;
+    }
+    .timeline-content {
+      width: 75%;
+      float: left;
+      border-left: 3px #e5e5d1 solid;
+      padding-left: 30px;
+    }
+    .timeline-content:before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: #6fc173;
+      position: absolute;
+      left: 106px;
+      top: 24px;
+      border-radius: 100%;
+    }
+  }
+.timeline{
+  margin-left:30px;
+}
+#error{
+  margin-top:30px;
+}
+    </style>
+  </head>
+  <body>
+<h3 id="error">{{error}}</h3>
+    <ul class="timeline">
+      {% for b in blog %}
+        <li>
+          <p class="timeline-date">{{b.create_time}}</p>
+          <div class="timeline-content">
+            <h3>{{b.title}}</h3>
+            <p>{{b.Blog_content|safe}}</p>
+          </div>
+        </li>
+  {% endfor %}
+    </ul>
+
+</body>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "PittsTime/base.html" %}
+{% load staticfiles %}
+{% block content %}
+
+<div class="container">
+  <div id="profile">
+
+<div id="profile" align="center">
+<h2>
+<span>Profile Page for </span>
+<span id="id_user_name">
+    {{user.first_name}} {{user.last_name}}
+</span>
+</h2>
+<div class="error">
+    {{message}}
+</div>
+<span> Profile Picture: </span><br>
+{% if profile.bio_picture %}
+    <img id="id_user_picture" src="{% url 'photo' profile.id %}"  width="200px" height="200px">
+  <br>
+{% else %}
+    <img src="https://upload.wikimedia.org/wikipedia/commons/1/1e/Default-avatar.jpg">
+{% endif %}
+
+  <form enctype="multipart/form-data" action="{%url 'updateProfile' %}" method="post">
+    {% for field in form.visible_fields%}
+       {{field}}<br>
+    {% endfor %}
+     <input class="btn btn-light btn-lg" type="submit" id="id_update_profile_button" value="Submit">
+    {% csrf_token %}
+  </form><br>
+
+  <span> <h4>Your interests are:</h4></span>
+  <!-- <ul > -->
+  {% for i in following %}
+        <!-- <li> -->
+          <a href="{% url 'tag' i.id%}" >{{i.name}}</a>
+        {% if i in following %}
+        <a href="{% url 'delete_interest_profile' i.id%}" ><button class="btn btn-light btn-sm"> Unsubscribe</button></a>
+        {% else %}
+        <a href="{% url 'add_interest_profile' i.id%}" ><button class="btn btn-light btn-sm"> Subscribe</button></a>
+        {% endif %}
+        <br><br>
+        <!-- </li> -->
+
+  {% endfor %}
+<!-- </ul> -->
+</div>
+</div>
+ {% endblock%}

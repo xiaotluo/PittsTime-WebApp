@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta charset="utf-8">
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="">
+
+    <!-- Google Fonts -->
+    <link href='http://fonts.googleapis.com/css?family=Raleway:300,400%7COpen+Sans:400,400i,700%7CLibre+Baskerville:400i' rel='stylesheet'>
+    {% load staticfiles %}
+    <!-- Css -->
+    <link rel="stylesheet" href="{% static 'PittsTime/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'PittsTime/font-icons.css' %}"/>
+    <link rel="stylesheet" href="{% static 'PittsTime/sliders.css' %}"/>
+    <link rel="stylesheet" href="{% static 'PittsTime/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'PittsTime/responsive.css' %}"/>
+    <link rel="stylesheet" href="{% static 'PittsTime/spacings.css' %}"/>
+    <link rel="stylesheet" href="{% static 'PittsTime/animate.min.css' %}"/>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+     <!-- jQuery Scripts -->
+
+    <script type="text/javascript" src="{% static 'PittsTime/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'PittsTime/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'PittsTime/plugins.js' %}"></script>
+<!--     <script type="text/javascript" src="{% static 'PittsTime/twitterFetcher_min.js' %}"></script> -->
+    <script type="text/javascript" src="{% static 'PittsTime/scripts.js' %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+
+
+    {% block head %}
+    {% endblock %}
+
+    <!-- Favicons -->
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="img/apple-touch-icon-114x114.png">
+
+  </head>
+  <body>
+<div id="wholepage" style="height:0.01px;">
+</div>
+    	{% block top-bar %}
+    <div class="top-bar">
+      <div class="container">
+        <div class="row">
+          <!-- socials -->
+          <div>
+              <a href=""><h1 id="siteName">PittsTime</h1></a>
+          </div> <!-- end socials -->
+
+ {% block user-info %}
+<nav class="navbar navbar-static-top">
+  <div class="navigation">
+    <div class="container relative">
+      <div class="row">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+        </div> <!-- end navbar-header -->
+
+          <ul class="navbar-nav navbar-right">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="usermenu">{{user.first_name}} {{user.last_name}} </span>
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'myprofile' %}"><span class="usermenu">My Profile</span></a><br>
+                <a class="dropdown-item" href="{% url 'createBlog' %}"> <span class="usermenu">Create Blog</span></a><br>
+                <a class="dropdown-item" href="{% url 'interest'%}"><span class="usermenu">My Interest</span></a><br>
+                <a class="dropdown-item" href="{% url 'manageBlog'%}"><span class="usermenu">Manage Blogs</span></a><br>
+                <a class="dropdown-item" href="{% url 'logout' %}"><span class="usermenu">Log out</span></a>
+              </div>
+            </li>
+          </ul>
+
+          <div class="col-md-12 nav-wrap">
+            <div class="collapse navbar-collapse text-center" id="navbar-collapse">
+
+              <ul class="nav navbar-nav">
+
+                <li class="dropdown active">
+                  <a i href="{% url 'home' %}"><span id="homeurl">Home</span></a><i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
+                  <ul class="dropdown-menu">
+                  </ul>
+                </li>
+                <li class="dropdown">
+                  <a href="#"><san id="categoryurl">Interests</span></a><i class="fa fa-angle-down dropdown-toggle" data-toggle="dropdown"></i>
+                  <ul class="dropdown-menu">
+                    {% for i in interest %}
+                    <li><a href="{% url 'tag' i.id%}">{{i.name}}</a></li>
+                    {% endfor %}
+                  </ul>
+                </li>
+                <li>
+                  <a href="{% url 'timeline' %}"><span id="abouturl">My Timeline</span></a>
+                </li>
+              </ul> <!-- end menu -->
+            </div> <!-- end collapse -->
+            </div> <!-- end col -->
+          </nav>
+          </div> <!-- end row -->
+        </div> <!-- end container -->
+      </div> <!-- end navigation -->
+{% endblock %}
+</div>
+  </div>
+    </div>
+{% endblock %}
+<!-- end top bar -->
+    <div class="content">
+   {% block content %}
+   {% endblock %}
+ </div>
+<!-- </div> -->
+<script type="text/javascript">
+      var path = window.location.pathname;
+      var page = path.split("/").pop();
+      // console.log( page );
+      if(page==="home"){
+        /* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
+        var falling = true;
+
+        TweenLite.set("#wholepage",{perspective:600})
+        TweenLite.set("img",{xPercent:"-50%",yPercent:"-50%"})
+
+        var total = 30;
+        var wholepage = document.getElementById("wholepage");
+        // console.log(wholepage.values);
+        // ,	w = window.innerWidth , h = window.innerHeight;
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        for (i=0; i<total; i++){
+         var Div = document.createElement('div');
+         TweenLite.set(Div,{attr:{class:'dot'},x:R(0,w),y:R(-200,-150),z:R(-200,200)});
+         wholepage.appendChild(Div);
+         animm(Div);
+        }
+
+        function animm(elm){
+         TweenMax.to(elm,R(6,15),{y:h+100,ease:Linear.easeNone,repeat:-1,delay:-15});
+         TweenMax.to(elm,R(4,8),{x:'+=100',rotationZ:R(0,180),repeat:-1,yoyo:true,ease:Sine.easeInOut});
+         TweenMax.to(elm,R(2,8),{rotationX:R(0,360),rotationY:R(0,360),repeat:-1,yoyo:true,ease:Sine.easeInOut,delay:-5});
+        };
+
+        function R(min,max) {return min+Math.random()*(max-min)};
+      }
+
+/* a Pen by Diaco m.lotfollahi  : https://diacodesign.com */
+</script>
+  </body>
+</html>
